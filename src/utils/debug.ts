@@ -3,9 +3,7 @@
  * True if environment variable `DEBUG` is "1" or "true", or `VERBOSE` is "1".
  */
 const IS_DEBUG =
-	process.env.DEBUG === '1' ||
-	process.env.DEBUG === 'true' ||
-	process.env.VERBOSE === '1';
+	Bun.env.DEBUG === '1' || Bun.env.DEBUG === 'true' || Bun.env.VERBOSE === '1';
 
 /**
  * Logs debugging messages and data to standard error (`console.error`) with a timestamp,

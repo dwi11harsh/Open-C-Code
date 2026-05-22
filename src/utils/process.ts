@@ -11,7 +11,7 @@
 export const exitWithError = (error: unknown, exitCode = 1): never => {
 	if (error instanceof Error) {
 		console.error(`Fatal: ${error.message}`);
-		if (process.env.DEBUG === '1' && error.stack) {
+		if (Bun.env.DEBUG === '1' && error.stack) {
 			console.error(error.stack);
 		} else {
 			console.error('Fatal:', error);
