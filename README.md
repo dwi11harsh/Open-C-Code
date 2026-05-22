@@ -1,1 +1,1 @@
-# occ-agent
+# Open C Code (OCC)
