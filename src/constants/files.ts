@@ -74,7 +74,7 @@ export const isBinaryContent = (buffer: Buffer): boolean => {
 	let nonPrintable = 0;
 
 	for (let i = 0; i < checkSize; i++) {
-		const byte = buffer[i]!;
+		const byte = buffer[i] ?? 0;
 		if (byte === 0) return true;
 		if (byte < 32 && byte !== 9 && byte !== 10 && byte !== 13) nonPrintable++;
 	}
