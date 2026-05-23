@@ -56,7 +56,7 @@ export const errorMessage = (e: unknown): string => {
 };
 
 /** extract errno code (ENOENT, EACCES, etc) */
-export const getErrornoCode = (e: unknown): string | undefined => {
+export const getErrnoCode = (e: unknown): string | undefined => {
 	if (e && typeof e === 'object' && 'code' in e && typeof e.code === 'string')
 		return e.code;
 
@@ -64,11 +64,11 @@ export const getErrornoCode = (e: unknown): string | undefined => {
 };
 
 export const isENOENT = (e: unknown): boolean => {
-	return getErrornoCode(e) === 'ENOENT';
+	return getErrnoCode(e) === 'ENOENT';
 };
 
 export const isFsInaccessible = (e: unknown): boolean => {
-	const code = getErrornoCode(e);
+	const code = getErrnoCode(e);
 	return (
 		code === 'ENOENT' ||
 		code === 'EACCES' ||
