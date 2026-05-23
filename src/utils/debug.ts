@@ -15,7 +15,6 @@ export const logForDebugging = (...args: unknown[]): void => {
 	if (!IS_DEBUG) return;
 
 	const timestamp = new Date().toISOString();
-	// biome-ignore lint/suspicious/noConsole: intentional debug output to stderr
 	console.error(`[DEBUG ${timestamp}]`, ...args);
 };
 

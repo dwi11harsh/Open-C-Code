@@ -11,7 +11,6 @@ async function main(): Promise<void> {
 	// ── Fast-path flags ──────────────────────────────────────────────
 	// handle immediately, before loading anything heavy
 	if (args.includes('--version') || args.includes('-v')) {
-		// biome-ignore lint/suspicious/noConsole: intentional CLI output
 		console.log(`${PRODUCT_NAME} v${VERSION}`);
 		return;
 	}
@@ -27,18 +26,13 @@ async function main(): Promise<void> {
 	// 2. initialize the model client
 	// 3. start Ink TUI
 
-	// biome-ignore lint/suspicious/noConsole: intentional CLI output
 	console.log(`${PRODUCT_NAME} v${VERSION}`);
-	// biome-ignore lint/suspicious/noConsole: intentional CLI output
 	console.log('Day 1 scaffold is working!');
-	// biome-ignore lint/suspicious/noConsole: intentional CLI output
 	console.log('');
 
 	if (args.length > 0) {
-		// biome-ignore lint/suspicious/noConsole: intentional CLI output
 		console.log('Args received:', args);
 	} else {
-		// biome-ignore lint/suspicious/noConsole: intentional CLI output
 		console.log('Run with --help to see available options.');
 	}
 }
@@ -60,7 +54,6 @@ Examples:
 Documentation: https://github.com/your-username/${PRODUCT_NAME}
 `.trim();
 
-	// biome-ignore lint/suspicious/noConsole: intentional CLI output
 	console.log(help);
 };
 
