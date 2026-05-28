@@ -31,3 +31,4 @@ export { createSignal } from './signal';
 
 export { getPerformance, formatMs, formatTimelineLine } from './profilerBase';
 
+export { profileCheckpoint, profileReport, getStartupReport, SHOULD_PROFILE } from './startupProfiler';
