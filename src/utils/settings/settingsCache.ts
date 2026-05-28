@@ -15,6 +15,7 @@
  */
 
 import type { SettingSource } from './constants';
+import type { ValidationError } from './types';
 
 // ── Layer 1: merged session cache ─────────────────────────────────────────────
 
@@ -72,7 +73,7 @@ export const setCachedSettingsForSource = (
  */
 type ParsedSettings = {
 	settings: SettingsJson | null;
-	errors: string[]; // validation error messages (full ValidationError type added later)
+	errors: ValidationError[];
 };
 
 const parsedFileCache = new Map<string, ParsedSettings>();

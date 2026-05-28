@@ -66,7 +66,13 @@ describe('per-path cache', () => {
 	it('stores parsed file with errors array', () => {
 		setCachedParsedFile('/settings.json', {
 			settings: { theme: 'light' },
-			errors: ['field x is invalid'],
+			errors: [
+				{
+					path: '/settings.json',
+					field: 'x',
+					message: 'field x is invalid',
+				},
+			],
 		});
 		const cached = getCachedParsedFile('/settings.json');
 		expect(cached?.settings?.theme).toBe('light');

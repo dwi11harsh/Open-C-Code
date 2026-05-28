@@ -14,11 +14,11 @@
  * Thread safety: not a concern in Node.js (single-threaded event loop).
  */
 export function lazySchema<T>(factory: () => T): () => T {
-  let cached: T | null = null;
-  return (): T => {
-    if (cached === null) {
-      cached = factory();
-    }
-    return cached;
-  };
+	let cached: T | null = null;
+	return (): T => {
+		if (cached === null) {
+			cached = factory();
+		}
+		return cached;
+	};
 }
