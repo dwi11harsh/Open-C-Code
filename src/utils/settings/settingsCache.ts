@@ -1,6 +1,6 @@
 /**
  * In memory cache for settings reads.
- * 
+ *
  * Three-layer cache to avoid repeated disk reads during a session:
  *   1. sessionSettingsCache — the final merged SettingsJson for this session
  *   2. perSourceCache — raw SettingsJson per source (before merging)
@@ -30,20 +30,20 @@ export type SettingsJson = Record<string, unknown>;
 let sessionSettingsCache: SettingsJson | null = null;
 
 export const getSessionSettingsCache = (): SettingsJson | null => {
-    return sessionSettingsCache;
-}
+	return sessionSettingsCache;
+};
 
 export const setSessionSettingsCache = (value: SettingsJson): void => {
-  sessionSettingsCache = value;
-}
+	sessionSettingsCache = value;
+};
 
 // ── Layer 2: per-source cache ─────────────────────────────────────────────────
 /**
  * Cached raw settings per source
- * 
+ *
  * null value = "we looked and there was no file for this source"
  * undefined (missing key) = "we haven't looked yet" (cache miss)
- * 
+ *
  */
 const perSourceCache = new Map<SettingSource, SettingsJson | null>();
 
@@ -51,14 +51,18 @@ const perSourceCache = new Map<SettingSource, SettingsJson | null>();
  * @returns the cached settings for a source, or undefined if not cached.
  * null = cached empty (file doesn't exist); undefined = cache miss.
  */
-export const getCachedSettingsForSource = (source: SettingSource): SettingsJson | null | undefined => {
-    return perSourceCache.has(source) ? perSourceCache.get(source) : undefined
-}
+export const getCachedSettingsForSource = (
+	source: SettingSource,
+): SettingsJson | null | undefined => {
+	return perSourceCache.has(source) ? perSourceCache.get(source) : undefined;
+};
 
-export const setCachedSettingsForSource = (source: SettingSource, value: SettingsJson | null): void => {
-    perSourceCache.set(source, value)
-}
-
+export const setCachedSettingsForSource = (
+	source: SettingSource,
+	value: SettingsJson | null,
+): void => {
+	perSourceCache.set(source, value);
+};
 
 // ── Layer 3: per-file-path cache ──────────────────────────────────────────────
 
@@ -67,19 +71,24 @@ export const setCachedSettingsForSource = (source: SettingSource, value: Setting
  * Used to deduplicate disk reads when multiple sources point to the same file.
  */
 type ParsedSettings = {
-  settings: SettingsJson | null;
-  errors: string[]; // validation error messages (full ValidationError type added later)
+	settings: SettingsJson | null;
+	errors: string[]; // validation error messages (full ValidationError type added later)
 };
 
 const parsedFileCache = new Map<string, ParsedSettings>();
 
-export const getCachedParsedFile = (path: string): ParsedSettings | undefined => {
-    return parsedFileCache.get(path)
-}
+export const getCachedParsedFile = (
+	path: string,
+): ParsedSettings | undefined => {
+	return parsedFileCache.get(path);
+};
 
-export const setCachedParsedFile = (path: string, value: ParsedSettings): void => {
-    parsedFileCache.set(path, value)
-}
+export const setCachedParsedFile = (
+	path: string,
+	value: ParsedSettings,
+): void => {
+	parsedFileCache.set(path, value);
+};
 
 /**
  * Invalidate ALL settings caches.
@@ -94,8 +103,8 @@ export const setCachedParsedFile = (path: string, value: ParsedSettings): void =
  *   - Hook refresh
  *   - resetStateForTests()
  */
-export const resetSettingsCache = ():void => {
-    sessionSettingsCache = null
-    perSourceCache.clear()
-    parsedFileCache.clear()
-}
+export const resetSettingsCache = (): void => {
+	sessionSettingsCache = null;
+	perSourceCache.clear();
+	parsedFileCache.clear();
+};

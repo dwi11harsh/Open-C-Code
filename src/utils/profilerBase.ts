@@ -25,12 +25,12 @@ let _performance: typeof PerformanceType | null = null;
  * We only pay that cost when profiling is actually enabled.
  */
 export const getPerformance = (): typeof PerformanceType => {
-  if (!_performance) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    _performance = require('perf_hooks').performance as typeof PerformanceType;
-  }
-  return _performance!;
-}
+	if (!_performance) {
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		_performance = require('perf_hooks').performance as typeof PerformanceType;
+	}
+	return _performance!;
+};
 
 /**
  * Format a millisecond value to 3 decimal places.
@@ -39,8 +39,8 @@ export const getPerformance = (): typeof PerformanceType => {
  * @example formatMs(12.3456) → "12.346"
  */
 export const formatMs = (ms: number): string => {
-  return ms.toFixed(3);
-}
+	return ms.toFixed(3);
+};
 
 /**
  * Render a single timeline line in the shared profiler report format:
@@ -55,25 +55,25 @@ export const formatMs = (ms: number): string => {
  * @param extra     - Optional suffix (token counts, etc.)
  */
 export function formatTimelineLine(
-  totalMs: number,
-  deltaMs: number,
-  name: string,
-  memory: NodeJS.MemoryUsage | undefined,
-  totalPad: number,
-  deltaPad: number,
-  extra = '',
+	totalMs: number,
+	deltaMs: number,
+	name: string,
+	memory: NodeJS.MemoryUsage | undefined,
+	totalPad: number,
+	deltaPad: number,
+	extra = '',
 ): string {
-  // Format memory as human-readable byte strings when present.
-  // Only shown in OPENC_CODE_PROFILE_STARTUP=1 mode.
-  const memInfo = memory
-    ? ` | RSS: ${formatBytes(memory.rss)}, Heap: ${formatBytes(memory.heapUsed)}`
-    : '';
+	// Format memory as human-readable byte strings when present.
+	// Only shown in OPENC_CODE_PROFILE_STARTUP=1 mode.
+	const memInfo = memory
+		? ` | RSS: ${formatBytes(memory.rss)}, Heap: ${formatBytes(memory.heapUsed)}`
+		: '';
 
-  return (
-    `[+${formatMs(totalMs).padStart(totalPad)}ms]` +
-    ` (+${formatMs(deltaMs).padStart(deltaPad)}ms)` +
-    ` ${name}${extra}${memInfo}`
-  );
+	return (
+		`[+${formatMs(totalMs).padStart(totalPad)}ms]` +
+		` (+${formatMs(deltaMs).padStart(deltaPad)}ms)` +
+		` ${name}${extra}${memInfo}`
+	);
 }
 
 /**
@@ -81,7 +81,7 @@ export function formatTimelineLine(
  * @example formatBytes(1536) → "1.5 KB"
  */
 function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+	if (bytes < 1024) return `${bytes} B`;
+	if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+	return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }

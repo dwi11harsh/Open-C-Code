@@ -28,7 +28,8 @@ const DETAILED_PROFILING = isEnvTruthy(process.env.OPENC_CODE_PROFILE_STARTUP);
  * (We don't have analytics wired yet — this is the skeleton.)
  */
 const SAMPLE_RATE = 0.005;
-const SAMPLED_FOR_ANALYTICS = !DETAILED_PROFILING && Math.random() < SAMPLE_RATE;
+const SAMPLED_FOR_ANALYTICS =
+	!DETAILED_PROFILING && Math.random() < SAMPLE_RATE;
 
 /**
  * Are we profiling at all?
@@ -41,7 +42,6 @@ export const SHOULD_PROFILE = DETAILED_PROFILING || SAMPLED_FOR_ANALYTICS;
 // calls. Using a Map keyed by name is wrong: some checkpoints fire more than
 // once, and the second call would overwrite the first's snapshot.
 const memorySnapshots: NodeJS.MemoryUsage[] = [];
-
 
 /**
  * Record a named checkpoint.
@@ -56,61 +56,60 @@ const memorySnapshots: NodeJS.MemoryUsage[] = [];
  * Naming convention: lowercase_snake_case, _start/_end suffix pairs.
  */
 export const profileCheckpoint = (name: string): void => {
-  if (!SHOULD_PROFILE) return;
+	if (!SHOULD_PROFILE) return;
 
-  getPerformance().mark(name);
+	getPerformance().mark(name);
 
-  if (DETAILED_PROFILING) {
-    memorySnapshots.push(process.memoryUsage());
-  }
-}
+	if (DETAILED_PROFILING) {
+		memorySnapshots.push(process.memoryUsage());
+	}
+};
 
 // ── Record the first checkpoint immediately if profiling is on ───────────────
 if (SHOULD_PROFILE) {
-  profileCheckpoint('profiler_initialized');
+	profileCheckpoint('profiler_initialized');
 }
-
 
 /**
  * Build a formatted text report of all recorded checkpoints.
  * Returns an empty string if detailed profiling is not enabled.
  */
 export const getStartupReport = (): string => {
-  if (!DETAILED_PROFILING) return '';
+	if (!DETAILED_PROFILING) return '';
 
-  const perf = getPerformance();
-  const marks = perf.getEntriesByType('mark');
-  if (marks.length === 0) return 'No profiling checkpoints recorded.';
+	const perf = getPerformance();
+	const marks = perf.getEntriesByType('mark');
+	if (marks.length === 0) return 'No profiling checkpoints recorded.';
 
-  const lines: string[] = [
-    '='.repeat(80),
-    'STARTUP PROFILING REPORT',
-    '='.repeat(80),
-    '',
-  ];
+	const lines: string[] = [
+		'='.repeat(80),
+		'STARTUP PROFILING REPORT',
+		'='.repeat(80),
+		'',
+	];
 
-  let prevTime = 0;
-  for (const [i, mark] of marks.entries()) {
-    lines.push(
-      formatTimelineLine(
-        mark.startTime,
-        mark.startTime - prevTime,
-        mark.name,
-        memorySnapshots[i],
-        8,
-        7,
-      ),
-    );
-    prevTime = mark.startTime;
-  }
+	let prevTime = 0;
+	for (const [i, mark] of marks.entries()) {
+		lines.push(
+			formatTimelineLine(
+				mark.startTime,
+				mark.startTime - prevTime,
+				mark.name,
+				memorySnapshots[i],
+				8,
+				7,
+			),
+		);
+		prevTime = mark.startTime;
+	}
 
-  const lastMark = marks[marks.length - 1];
-  lines.push('');
-  lines.push(`Total startup time: ${formatMs(lastMark?.startTime ?? 0)}ms`);
-  lines.push('='.repeat(80));
+	const lastMark = marks[marks.length - 1];
+	lines.push('');
+	lines.push(`Total startup time: ${formatMs(lastMark?.startTime ?? 0)}ms`);
+	lines.push('='.repeat(80));
 
-  return lines.join('\n');
-}
+	return lines.join('\n');
+};
 
 /** Guard against calling profileReport() more than once per process. */
 let hasReported = false;
@@ -121,11 +120,11 @@ let hasReported = false;
  * Logs to stderr if OPENC_CODE_PROFILE_STARTUP=1.
  */
 export function profileReport(): void {
-  if (hasReported) return;
-  hasReported = true;
+	if (hasReported) return;
+	hasReported = true;
 
-  const report = getStartupReport();
-  if (report) {
-    logForDebugging('\n' + report);
-  }
+	const report = getStartupReport();
+	if (report) {
+		logForDebugging('\n' + report);
+	}
 }

@@ -31,4 +31,18 @@ export { createSignal } from './signal';
 
 export { getPerformance, formatMs, formatTimelineLine } from './profilerBase';
 
-export { profileCheckpoint, profileReport, getStartupReport, SHOULD_PROFILE } from './startupProfiler';
+export {
+	profileCheckpoint,
+	profileReport,
+	getStartupReport,
+	SHOULD_PROFILE,
+} from './startupProfiler';
+
+export {
+	startCapturingEarlyInput,
+	stopCapturingEarlyInput,
+	consumeEarlyInput,
+	hasEarlyInput,
+	seedEarlyInput,
+	isCapturingEarlyInput,
+} from './earlyInput.js';
