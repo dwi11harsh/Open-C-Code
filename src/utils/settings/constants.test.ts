@@ -39,7 +39,7 @@ describe('display names', () => {
 	it('capitalized names start with uppercase', () => {
 		for (const source of SETTING_SOURCES) {
 			const name = getSettingSourceDisplayNameCapitalized(source);
-			expect(name[0]).toBe(name[0]!.toUpperCase());
+			expect(name[0]).toBe(name[0]?.toUpperCase());
 		}
 	});
 
