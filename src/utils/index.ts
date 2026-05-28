@@ -29,3 +29,5 @@ export { exitCleanly, exitWithError } from './process';
 export type { Signal } from './signal';
 export { createSignal } from './signal';
 
+export { getPerformance, formatMs, formatTimelineLine } from './profilerBase';
+
