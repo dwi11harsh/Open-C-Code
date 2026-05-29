@@ -11,8 +11,8 @@
  * the initial check.
  */
 
-import { isEnvTruthy } from './env';
 import { logForDebugging } from './debug';
+import { isEnvTruthy } from './env';
 import { formatMs, formatTimelineLine, getPerformance } from './profilerBase';
 
 // ── Mode decision (made once at module load, never re-evaluated) ─────────────

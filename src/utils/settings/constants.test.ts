@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'bun:test';
 import {
-	SETTING_SOURCES,
 	getEnabledSettingSources,
 	getSettingSourceDisplayNameCapitalized,
 	getSettingSourceDisplayNameLowercase,
 	getSettingSourceName,
 	isSettingSourceEnabled,
-	setAllowedSettingSources,
+	SETTING_SOURCES,
 	type SettingSource,
+	setAllowedSettingSources,
 } from './constants.js';
 
 describe('SETTING_SOURCES', () => {

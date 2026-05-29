@@ -13,33 +13,33 @@
  */
 
 import { existsSync, readFileSync } from 'fs';
+import { getOriginalCwd } from 'src/bootstrap/state';
+import { logForDebugging } from '../debug';
+import {
+	getLocalSettingsPath,
+	getProjectSettingsPath,
+	getUserSettingsPath,
+} from '../env';
 import {
 	getEnabledSettingSources,
 	getSettingSourceName,
 	type SettingSource,
 } from './constants';
 import {
+	resetSettingsCache as _resetSettingsCache,
+	type SettingsJson as CachedSettingsJson,
 	getCachedParsedFile,
 	getCachedSettingsForSource,
 	getSessionSettingsCache,
-	resetSettingsCache as _resetSettingsCache,
 	setCachedParsedFile,
 	setCachedSettingsForSource,
 	setSessionSettingsCache,
-	type SettingsJson as CachedSettingsJson,
 } from './settingsCache';
 import {
-	SettingsSchema,
 	type SettingsJson,
+	SettingsSchema,
 	type ValidationError,
 } from './types';
-import {
-	getUserSettingsPath,
-	getProjectSettingsPath,
-	getLocalSettingsPath,
-} from '../env';
-import { logForDebugging } from '../debug';
-import { getOriginalCwd } from 'src/bootstrap/state';
 
 /**
  * Parse and validate a single settings file from disk.

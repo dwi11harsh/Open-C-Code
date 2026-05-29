@@ -10,13 +10,13 @@ import { realpathSync } from 'node:fs';
 import { cwd as processCwd } from 'node:process';
 import type { SessionId } from 'src/types/ids';
 import { randomUUID } from 'src/utils/crypto';
-import { createSignal } from 'src/utils/signal';
-import { resetSettingsCache } from 'src/utils/settings/settingsCache';
 import {
 	SETTING_SOURCES,
-	setAllowedSettingSources,
 	type SettingSource,
+	setAllowedSettingSources,
 } from 'src/utils/settings/constants';
+import { resetSettingsCache } from 'src/utils/settings/settingsCache';
+import { createSignal } from 'src/utils/signal';
 
 // ── State shape ───────────────────────────────────────────────────────────────
 type State = {

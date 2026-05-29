@@ -1,6 +1,13 @@
 export { randomUUID } from './crypto';
 export { isDebugEnabled, logForDebugging } from './debug';
-
+export {
+	consumeEarlyInput,
+	hasEarlyInput,
+	isCapturingEarlyInput,
+	seedEarlyInput,
+	startCapturingEarlyInput,
+	stopCapturingEarlyInput,
+} from './earlyInput.js';
 export {
 	getLocalSettingsPath,
 	getOpenCConfigHomeDir,
@@ -10,7 +17,6 @@ export {
 	isEnvDefinedFalsy,
 	isEnvTruthy,
 } from './env.js';
-
 export {
 	AbortError,
 	ConfigParseError,
@@ -24,25 +30,13 @@ export {
 	shortErrorStack,
 	toError,
 } from './errors';
-
 export { exitCleanly, exitWithError } from './process';
+export { formatMs, formatTimelineLine, getPerformance } from './profilerBase';
 export type { Signal } from './signal';
 export { createSignal } from './signal';
-
-export { getPerformance, formatMs, formatTimelineLine } from './profilerBase';
-
 export {
+	getStartupReport,
 	profileCheckpoint,
 	profileReport,
-	getStartupReport,
 	SHOULD_PROFILE,
 } from './startupProfiler';
-
-export {
-	startCapturingEarlyInput,
-	stopCapturingEarlyInput,
-	consumeEarlyInput,
-	hasEarlyInput,
-	seedEarlyInput,
-	isCapturingEarlyInput,
-} from './earlyInput.js';

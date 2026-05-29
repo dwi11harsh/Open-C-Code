@@ -3,15 +3,15 @@
  */
 
 export {
-	SETTING_SOURCES,
+	type EditableSettingSource,
 	getEnabledSettingSources,
 	getSettingSourceDisplayNameCapitalized,
 	getSettingSourceDisplayNameLowercase,
 	getSettingSourceName,
 	isSettingSourceEnabled,
-	setAllowedSettingSources,
-	type EditableSettingSource,
+	SETTING_SOURCES,
 	type SettingSource,
+	setAllowedSettingSources,
 } from './constants';
 
 export {
@@ -19,8 +19,8 @@ export {
 	getCachedSettingsForSource,
 	getSessionSettingsCache,
 	resetSettingsCache,
+	type SettingsJson,
 	setCachedParsedFile,
 	setCachedSettingsForSource,
 	setSessionSettingsCache,
-	type SettingsJson,
 } from './settingsCache';

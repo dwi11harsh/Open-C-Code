@@ -1,8 +1,8 @@
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { resetSettingsCache } from '../settings/settingsCache';
-import { parseSettingsFile, getSettings, getSetting } from './settings';
+import { getSetting, getSettings, parseSettingsFile } from './settings';
 
 // Create a temp directory for test settings files
 let tmpDir: string;
