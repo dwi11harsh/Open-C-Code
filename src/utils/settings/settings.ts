@@ -12,7 +12,7 @@
  * Call resetSettingsCache() to invalidate after any settings write.
  */
 
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { getOriginalCwd } from 'src/bootstrap/state';
 import { logForDebugging } from '../debug';
 import {

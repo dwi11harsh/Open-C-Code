@@ -8,7 +8,7 @@
  * This file has NO internal imports — it is a true leaf module.
  */
 
-import type { performance as PerformanceType } from 'perf_hooks';
+import type { performance as PerformanceType } from 'node:perf_hooks';
 
 /**
  * Lazy reference to the Node.js performance API.
@@ -27,9 +27,14 @@ let _performance: typeof PerformanceType | null = null;
 export const getPerformance = (): typeof PerformanceType => {
 	if (!_performance) {
 		// eslint-disable-next-line @typescript-eslint/no-require-imports
-		_performance = require('perf_hooks').performance as typeof PerformanceType;
+		_performance = require('node:perf_hooks')
+			.performance as typeof PerformanceType;
 	}
-	return _performance!;
+	const perf = _performance;
+	if (!perf) {
+		throw new Error('Failed to load performance module');
+	}
+	return perf;
 };
 
 /**

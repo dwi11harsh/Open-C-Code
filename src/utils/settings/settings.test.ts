@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { resetSettingsCache } from '../settings/settingsCache';
 import { getSetting, getSettings, parseSettingsFile } from './settings';
 

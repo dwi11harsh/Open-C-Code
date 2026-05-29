@@ -1,11 +1,25 @@
-import { exitWithError, logForDebugging } from 'src/utils';
+import {
+	consumeEarlyInput,
+	exitWithError,
+	logForDebugging,
+	profileCheckpoint,
+	profileReport,
+	startCapturingEarlyInput,
+} from 'src/utils';
+
+// ── Record import checkpoint immediately ─────────────────────────────────────
+profileCheckpoint('cli_entry');
+
+// ── Start buffering early keystrokes ─────────────────────────────────────────
+startCapturingEarlyInput();
 
 const VERSION = '0.0.1';
 const PRODUCT_NAME = 'open-c-code';
 
 async function main(): Promise<void> {
-	const args = process.argv.slice(2);
+	profileCheckpoint('main_start');
 
+	const args = process.argv.slice(2);
 	logForDebugging('CLI started with args:', args);
 
 	// ── Fast-path flags ──────────────────────────────────────────────
@@ -20,6 +34,20 @@ async function main(): Promise<void> {
 		return;
 	}
 
+	// ── Load settings and resolve model ────────────────────────────────────────
+	profileCheckpoint('settings_load_start');
+	const { getSettings } = await import('src/utils/settings/settings');
+	const { getMainLoopModel } = await import('src/utils/model/model');
+	profileCheckpoint('settings_load_end');
+
+	const settings = getSettings();
+	const model = getMainLoopModel();
+
+	profileCheckpoint('main_after_settings');
+
+	// ── Consume early input ──────────────────────────────────────────────────
+	const earlyInput = consumeEarlyInput();
+
 	// ── Normal boot ──────────────────────────────────────────────
 	// TODOs:
 	// 1. load config files
@@ -27,14 +55,15 @@ async function main(): Promise<void> {
 	// 3. start Ink TUI
 
 	console.log(`${PRODUCT_NAME} v${VERSION}`);
-	console.log('Day 1 scaffold is working!');
-	console.log('');
+	console.log(`Model: ${model}`);
 
-	if (args.length > 0) {
-		console.log('Args received:', args);
-	} else {
-		console.log('Run with --help to see available options.');
-	}
+	settings.theme ?? console.log(`Theme: ${settings.theme}`);
+
+	earlyInput ?? console.log(`Early input captured: ${earlyInput}`);
+
+	console.log('Day 4: settings + model pipeline working!');
+
+	profileReport();
 }
 
 const printHelp = (): void => {

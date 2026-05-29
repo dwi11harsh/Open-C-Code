@@ -84,7 +84,10 @@ const processChunk = (str: string): void => {
 	let i = 0;
 
 	while (i < str.length) {
-		const char = str[i]!;
+		const char = str[i];
+		if (char === undefined) {
+			break;
+		}
 		const code = char.charCodeAt(0);
 
 		// Ctrl+C — exit immediately

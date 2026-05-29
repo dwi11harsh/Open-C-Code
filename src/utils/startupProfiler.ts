@@ -125,6 +125,6 @@ export function profileReport(): void {
 
 	const report = getStartupReport();
 	if (report) {
-		logForDebugging('\n' + report);
+		logForDebugging(`\n${report}`);
 	}
 }
