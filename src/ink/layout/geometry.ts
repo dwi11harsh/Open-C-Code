@@ -103,10 +103,7 @@ export const clampRect = (rect: Rectangle, size: Size): Rectangle => {
  * Used by hit-testing (mouse click → which element was clicked).
  */
 export const withinBounds = (size: Size, point: Point): boolean =>
-	point.x >= 0 &&
-	point.y >= 0 &&
-	point.x < size.width &&
-	point.y < size.height;
+	point.x >= 0 && point.y >= 0 && point.x < size.width && point.y < size.height;
 
 // ── Numeric utilities ─────────────────────────────────────────────────────────
 
