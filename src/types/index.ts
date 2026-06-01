@@ -28,6 +28,20 @@ export {
 export type { LogEntry, LogLevel } from './logs';
 
 export type {
+	AssistantMessage,
+	ContentBlock,
+	ContentBlockParam,
+	ErrorMessage,
+	Message,
+	MessageParam,
+	ProgressMessage,
+	TextBlock,
+	ToolResultBlockParam,
+	ToolUseBlock,
+	UserMessage,
+} from './message';
+
+export type {
 	PermissionAllowDecision,
 	PermissionAskDecision,
 	PermissionBehaviour,
