@@ -81,8 +81,12 @@ export const createAPIClient = async (
 
 		return new Anthropic({
 			...baseConfig,
-			apiKey,
+			apiKey: 'ollama', // placeholder — SDK requires a value
 			baseURL,
+			defaultHeaders: {
+				...baseConfig.defaultHeaders,
+				Authorization: `Bearer ${apiKey}`,
+			},
 		});
 	}
 
