@@ -8,7 +8,7 @@ describe('startupProfiler', () => {
 
 	it('getStartupReport returns empty string when detailed profiling is off', async () => {
 		// Unless CLAUDE_CODE_PROFILE_STARTUP=1 is set, this should be empty
-		if (!process.env.CLAUDE_CODE_PROFILE_STARTUP) {
+		if (!process.env.OPENC_CODE_PROFILE_STARTUP) {
 			const { getStartupReport } = await import('./startupProfiler.js');
 			expect(getStartupReport()).toBe('');
 		}
